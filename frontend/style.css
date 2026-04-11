@@ -11,6 +11,11 @@ body {
   background: linear-gradient(135deg, #ffffff, #ffe3e3);
   color: #333;
   overflow-x: hidden;
+  transition: background 0.5s ease;
+}
+
+html, body {
+  height: 100%;
 }
 
 /* CANVAS */
@@ -91,6 +96,8 @@ section {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 
   transition: transform 0.3s ease;
+
+  animation: aparecer 0.8s ease;
 }
 
 section:hover {
@@ -136,6 +143,7 @@ button {
 
   transition: all 0.3s ease;
 }
+
 /* LINK COMO BOTÓN */
 #no a {
   display: inline-block;
@@ -165,6 +173,7 @@ button {
 #no a:active {
   transform: scale(0.95);
 }
+
 button:hover {
   background: #ff3355;
   transform: scale(1.05);
@@ -187,10 +196,6 @@ footer {
 }
 
 /* ANIMACIÓN */
-section {
-  animation: aparecer 0.8s ease;
-}
-
 @keyframes aparecer {
   from {
     opacity: 0;
@@ -201,29 +206,7 @@ section {
     transform: translateY(0);
   }
 }
-/* CARD FINAL */
-.card {
-  margin-top: 20px;
-  padding: 25px;
 
-  background: white;
-  border-radius: 20px;
-
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-
-  animation: aparecerCard 0.8s ease;
-}
-
-@keyframes aparecerCard {
-  from {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 /* CONFETTI FULL SCREEN */
 #confetti {
   position: fixed;
@@ -231,12 +214,15 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* no bloquea clicks */
+  pointer-events: none;
   z-index: 0;
 }
+
+/* CARD FINAL (ARREGLADO) */
 .card {
   position: fixed;
-  top: 50%;
+
+  top: 55%; /* 🔥 centro + un poco abajo */
   left: 50%;
 
   transform: translate(-50%, -50%) scale(0.3);
@@ -263,13 +249,13 @@ section {
 .card.activa {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
-}.oculto {
+}
+
+/* OCULTO */
+.oculto {
   opacity: 0;
   transform: scale(0.9);
   pointer-events: none;
 
   transition: all 0.5s ease;
-}
-body {
-  transition: background 0.5s ease;
 }
