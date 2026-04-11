@@ -31,8 +31,8 @@ class Corazon {
 
     // Color variado
     const colores = [
-      "rgba(255, 0, 80, 0.8)",
-      "rgba(255, 50, 100, 0.7)",
+      "rgba(255, 67, 126, 0.8)",
+      "rgba(255, 79, 123, 0.7)",
       "rgba(255, 100, 150, 0.6)"
     ];
     this.color = colores[Math.floor(Math.random() * colores.length)];

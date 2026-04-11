@@ -54,7 +54,7 @@ function actualizarContador() {
     const t = calcularTiempoExacto(fechaInicio, ahora);
 
     document.getElementById("contador").innerText =
-        `Llevamos ${t.años} años, ${t.meses} meses, ${t.semanas} semanas, ${t.dias} días, ${t.horas}h ${t.minutos}m ${t.segundos}s ❤️`;
+        `Llevamos ${t.años} años, ${t.meses} meses, ${t.semanas} semanas, ${t.dias} días, ${t.horas}h ${t.minutos}m ${t.segundos}s`;
 }
 
 actualizarContador();
@@ -109,10 +109,10 @@ function actualizarRegresivos() {
     const tAnual = calcularRegresivo(anual.fecha);
 
     document.getElementById("regresivoMensual").innerText =
-        `Faltan ${tMensual.dias} días, ${tMensual.horas}h ${tMensual.minutos}m ${tMensual.segundos}s para nuestro mes #${mensual.numero} 💕`;
+        `Faltan ${tMensual.dias} días, ${tMensual.horas}h ${tMensual.minutos}m ${tMensual.segundos}s para nuestro mes #${mensual.numero} `;
 
     document.getElementById("regresivoAnual").innerText =
-        `Faltan ${tAnual.dias} días, ${tAnual.horas}h ${tAnual.minutos}m ${tAnual.segundos}s para nuestro aniversario #${anual.numero} 🎉`;
+        `Faltan ${tAnual.dias} días, ${tAnual.horas}h ${tAnual.minutos}m ${tAnual.segundos}s para nuestro aniversario #${anual.numero} `;
 }
 
 setInterval(actualizarRegresivos, 1000);

@@ -98,42 +98,33 @@ document.addEventListener("DOMContentLoaded", () => {
             color: `hsl(${Math.random() * 360}, 100%, 70%)`
         };
     }
-
-    function lanzarConfetti() {
-        // crear explosión
-        for (let i = 0; i < 200; i++) {
-            confettis.push(crearConfetti());
-        }
-
-        if (!animando) {
-            animando = true;
-            animarConfetti();
-        }
+function lanzarConfetti() {
+    for (let i = 0; i < 200; i++) {
+        confettis.push(crearConfetti());
     }
 
-    function animarConfetti() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // iniciar SIEMPRE (sin bandera)
+    animarConfetti();
+}
+function animarConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        confettis.forEach((c, i) => {
-            c.y += c.speed;
-            c.x += Math.sin(c.y * 0.05) * c.swing;
+    confettis.forEach(c => {
+        c.y += c.speed;
+        c.x += Math.sin(c.y * 0.05) * c.swing;
 
-            ctx.fillStyle = c.color;
-            ctx.fillRect(c.x, c.y, c.size, c.size);
+        ctx.fillStyle = c.color;
+        ctx.fillRect(c.x, c.y, c.size, c.size);
 
-            // eliminar cuando salen
-            if (c.y > canvas.height) {
-                confettis.splice(i, 1);
-            }
-        });
-
-        // seguir mientras haya partículas
-        if (confettis.length > 0) {
-            requestAnimationFrame(animarConfetti);
-        } else {
-            animando = false;
+        // 🔥 CLAVE: reciclar en vez de eliminar
+        if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
         }
-    }
+    });
+
+    requestAnimationFrame(animarConfetti);
+}
 
     // -----------------------------
     // 💥 DESBLOQUEO FINAL
