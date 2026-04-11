@@ -19,7 +19,8 @@ class Corazon {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * -canvas.height;
 
-    this.size = Math.random() * 10 + 8;
+    // 🔹 MÁS PEQUEÑOS
+    this.size = Math.random() * 4 + 3;
 
     this.speedY = Math.random() * 2 + 1;
     this.speedX = Math.random() * 1 - 0.5;
@@ -29,7 +30,6 @@ class Corazon {
 
     this.oscillation = Math.random() * 0.5;
 
-    // Color variado
     const colores = [
       "rgba(255, 67, 126, 0.8)",
       "rgba(255, 79, 123, 0.7)",
@@ -59,23 +59,21 @@ class Corazon {
 
     ctx.fillStyle = this.color;
 
-    // Dibujar corazón
-    ctx.beginPath();
     const s = this.size;
 
+    ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.bezierCurveTo(-s, -s, -s * 2, s / 2, 0, s * 2);
     ctx.bezierCurveTo(s * 2, s / 2, s, -s, 0, 0);
-
     ctx.fill();
 
     ctx.restore();
   }
 }
 
-// Crear corazones
+// 🔹 MENOS CORAZONES
 const corazones = [];
-for (let i = 0; i < 60; i++) {
+for (let i = 0; i < 25; i++) {
   corazones.push(new Corazon());
 }
 
