@@ -1,5 +1,6 @@
 
 const frases = [
+    "mi ardillita hermosa"
     "Tu sonrisa es hermosa mi betsa",
     "Me encanta cuando eres pegajosa conmigo",
     "Cuando estoy contigo olvido el dolor",
@@ -8,7 +9,7 @@ const frases = [
     "A pesar de sufrir todos los dias por mi condicion me haces feliz y quiero seguir adelante por ti",
     "Tus bellos ojos me cautivan a ser un mejor hombre para ti",
     "Desde que te conoci puedo disfrutar de la vida teniendote a mi lado",
-    "Gracias a ti mi depresion se empieza a desvanecer poco a poco",
+    "sigues aqui? mejor mandame un mensaje dandome muchos besitoos"
     "Me encanta tocarte y acariciarte, me hace sentir muy bien",
     "Adoro que disfrutes de mi, siempre me esfuerzo mucho para ti",
     "Te amo tanto que cada dia combato contra mis ganas de acabar con todo con el dolor que me conlleva a vivir cada dia, aun asi me haces disfrutar la vida con tan solo tu presencia",
