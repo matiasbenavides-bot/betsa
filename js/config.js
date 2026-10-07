@@ -36,6 +36,7 @@ const CONFIG = {
   // Cambiar acá: no toques js/frases.js
   intervaloFraseMs: 5000,
   frases: [
+    "Mi ardillita hermosa",
     "Tu sonrisa es hermosa mi betsa",
     "Me encanta cuando eres pegajosa conmigo",
     "Cuando estoy contigo olvido el dolor",
@@ -44,7 +45,7 @@ const CONFIG = {
     "A pesar de sufrir todos los días por mi condición me haces feliz y quiero seguir adelante por ti",
     "Tus bellos ojos me cautivan a ser un mejor hombre para ti",
     "Desde que te conocí puedo disfrutar de la vida teniéndote a mi lado",
-    "Gracias a ti mi depresión se empieza a desvanecer poco a poco",
+    "Sigues aquí? Mejor mándame un mensaje dándome muchos besitos",
     "Me encanta tocarte y acariciarte, me hace sentir muy bien",
     "Adoro que disfrutes de mí, siempre me esfuerzo mucho para ti",
     "Te amo tanto que cada día combato contra mis ganas de acabar con todo con el dolor que me conlleva a vivir cada día, aun así me haces disfrutar la vida con tan solo tu presencia",
