@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="dia">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Betsa</title>
+
+<!-- Lo que se ve al compartir el link (WhatsApp, etc.) -->
+<meta name="description" content="Una página hecha a mano, solo para ti.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Para Betsa">
+<meta property="og:description" content="Una página hecha a mano, solo para ti.">
+<meta property="og:locale" content="es_CL">
+<meta name="theme-color" content="#fdf3f0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<!-- Anti-parpadeo: aplica el tema guardado ANTES de pintar nada -->
+<script>
+(function () {
+  try {
+    var guardado = localStorage.getItem("betsa-tema");
+    if (guardado) {
+      document.documentElement.dataset.tema = guardado;
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.dataset.tema = "noche";
+    }
+  } catch (e) { /* localStorage bloqueado: se queda en dia */ }
+})();
+</script>
+
+<style>
+/* ==========================================================================
+   TEMA DIA (por defecto)
+   ========================================================================== */
+:root{
+  --vino:#8c1d3f; --rosa:#e0446e; --rosa-claro:#ffb3c7;
+  --fondo:#fdf3f0; --carbon:#3a2530; --gris:#7a6270;
+  --tarjeta:rgba(255,255,255,.74); --tarjeta-borde:rgba(224,68,110,.14);
+  --dato-fondo:#fff; --dato-borde:rgba(224,68,110,.1);
+  --reg-fondo:linear-gradient(150deg,#fff,#fff5f7);
+  --aviso-fondo:rgba(255,179,199,.2);
+  --aviso-borde:var(--rosa-claro); --aviso-texto:var(--vino);
+  --titulo-color:var(--vino); --texto-carta:var(--carbon);
+  --sombra:0 18px 50px rgba(140,29,63,.07);
+  --btn-fantasma-fondo:rgba(255,255,255,.6);
+  --aurora-opacidad:.5; --estrellas-opacidad:0;
+  --acento-degradado:none; --acento-color:var(--rosa);
+  --tipo-titulo:"Playfair Display",Georgia,serif;
+  --tipo-cuerpo:Inter,system-ui,sans-serif;
+}
+
+/* ==========================================================================
+   TEMA NOCHE — sobrescribe solo las variables
+   ========================================================================== */
+[data-tema="noche"]{
+  --vino:#ff6b9d; --rosa:#ff6b9d; --rosa-claro:#c9316b;
+  --fondo:#0d0810; --carbon:#f4eaf0; --gris:#a893a6;
+  --tarjeta:rgba(255,255,255,.045); --tarjeta-borde:rgba(255,120,160,.2);
+  --dato-fondo:rgba(255,255,255,.03); --dato-borde:rgba(255,255,255,.07);
+  --reg-fondo:linear-gradient(160deg,rgba(255,107,157,.09),rgba(255,255,255,.02));
+  --aviso-fondo:rgba(255,107,157,.07);
+  --aviso-borde:rgba(255,120,160,.3); --aviso-texto:#ff9ec0;
+  --titulo-color:#fff; --texto-carta:#e8dbe4;
+  --sombra:0 20px 60px rgba(0,0,0,.5);
+  --btn-fantasma-fondo:rgba(255,255,255,.03);
+  --aurora-opacidad:0; --estrellas-opacidad:.5;
+  --acento-color:#ff6b9d;
+  --tipo-titulo:"Cormorant Garamond",Georgia,serif;
+  --tipo-cuerpo:Outfit,system-ui,sans-serif;
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--tipo-cuerpo);font-weight:300;background:var(--fondo);color:var(--carbon);
+  line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  transition:background .45s ease,color .45s ease;
+}
+
+/* --- FONDO DIA: aurora --- */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:var(--aurora-opacidad);transition:opacity .45s ease}
+.aurora i{position:absolute;display:block;border-radius:50%;filter:blur(80px);opacity:.5;animation:flotar 18s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:46vw;height:46vw;background:#ffd0dd;top:-12%;left:-10%}
+.aurora i:nth-child(2){width:40vw;height:40vw;background:#ffe6c9;bottom:-15%;right:-12%;animation-delay:-6s}
+.aurora i:nth-child(3){width:34vw;height:34vw;background:#e8d5ff;top:38%;left:52%;animation-delay:-11s}
+@keyframes flotar{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(4%,-6%,0) scale(1.15)}}
+
+/* --- FONDO NOCHE: estrellas --- */
+.estrellas{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:var(--estrellas-opacidad);transition:opacity .45s ease;
+  background:radial-gradient(120% 80% at 50% -10%, #2a1226 0%, transparent 60%),
+             radial-gradient(90% 70% at 85% 110%, #3a1030 0%, transparent 55%)}
+.estrellas::after{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(1.2px 1.2px at 20% 30%,#fff,transparent),
+    radial-gradient(1px 1px at 70% 15%,#ffd9e6,transparent),
+    radial-gradient(1.4px 1.4px at 45% 65%,#fff,transparent),
+    radial-gradient(1px 1px at 88% 45%,#ffe4ee,transparent),
+    radial-gradient(1.1px 1.1px at 12% 80%,#fff,transparent),
+    radial-gradient(1px 1px at 60% 88%,#ffc9dd,transparent),
+    radial-gradient(1.3px 1.3px at 33% 12%,#fff,transparent),
+    radial-gradient(1px 1px at 78% 72%,#fff,transparent);
+  animation:centellear 5s ease-in-out infinite alternate}
+@keyframes centellear{from{opacity:.28}to{opacity:.6}}
+
+canvas#petalos{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity .45s ease}
+
+.wrap{position:relative;z-index:2;max-width:780px;margin:0 auto;padding:0 24px}
+
+/* --- BOTON TEMA --- */
+.toggle{
+  position:fixed;top:16px;right:16px;z-index:20;
+  width:46px;height:46px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+  background:var(--tarjeta);border:1px solid var(--tarjeta-borde);color:var(--carbon);
+  backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.12);
+  transition:transform .3s,box-shadow .3s,background .45s,border-color .45s,color .45s;
+}
+.toggle:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(224,68,110,.15),0 10px 28px rgba(140,29,63,.2)}
+.toggle:active{transform:scale(.94)}
+.toggle:focus-visible{outline:2px solid var(--rosa);outline-offset:3px}
+/* El sol solo se ve de dia; la luna, de noche */
+.toggle .icono-dia{display:none}
+.toggle .icono-noche{display:inline}
+[data-tema="dia"] .toggle .icono-dia{display:inline}
+[data-tema="dia"] .toggle .icono-noche{display:none}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px}
+.kicker{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--acento-color);font-weight:500;opacity:0;animation:subir .9s .15s forwards}
+.hero h1{
+  font-family:var(--tipo-titulo);font-weight:600;
+  font-size:clamp(2.5rem,10vw,4.6rem);line-height:1.05;color:var(--titulo-color);
+  opacity:0;animation:subir .9s .3s forwards
+}
+.hero h1 em{font-style:italic;color:var(--rosa);display:block}
+[data-tema="noche"] .hero h1{
+  background:linear-gradient(180deg,#fff,#ff9ec0);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:#fff
+}
+.hero .sub{max-width:43ch;color:var(--gris);font-size:1.02rem;opacity:0;animation:subir .9s .45s forwards}
+.linea{width:56px;height:2px;background:var(--rosa-claro);border-radius:2px;opacity:0;animation:subir .9s .6s forwards}
+.acciones{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:subir .9s .75s forwards}
+
+.btn{display:inline-block;text-decoration:none;font-size:.9rem;font-weight:400;
+  padding:13px 27px;border-radius:100px;transition:transform .3s,box-shadow .3s,background .3s,border-color .3s}
+.btn-primario{background:var(--vino);color:#fff;box-shadow:0 6px 22px rgba(140,29,63,.22)}
+.btn-primario:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(224,68,110,.18),0 12px 32px rgba(140,29,63,.32)}
+.btn-fantasma{color:var(--vino);border:1.5px solid var(--rosa-claro);background:var(--btn-fantasma-fondo)}
+.btn-fantasma:hover{background:var(--tarjeta);box-shadow:0 0 0 4px rgba(224,68,110,.14)}
+.pista{position:absolute;bottom:32px;font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gris);opacity:0;animation:subir .9s 1.05s forwards}
+
+/* SECCIONES */
+section{padding:84px 0;scroll-margin-top:20px}
+.panel{
+  background:var(--tarjeta);border:1px solid var(--tarjeta-borde);border-radius:24px;padding:40px 32px;
+  backdrop-filter:blur(14px);box-shadow:var(--sombra);text-align:center;
+  transition:background .45s,border-color .45s,box-shadow .45s;
+}
+.etiqueta{font-size:.67rem;letter-spacing:.26em;text-transform:uppercase;color:var(--acento-color);font-weight:500}
+.panel h2{font-family:var(--tipo-titulo);font-weight:600;font-size:clamp(1.6rem,5.2vw,2.25rem);color:var(--titulo-color);margin:11px 0 25px}
+
+/* DATOS */
+.rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:13px}
+.dato{background:var(--dato-fondo);border:1px solid var(--dato-borde);border-radius:16px;padding:19px 11px;
+  transition:border-color .3s,box-shadow .3s,background .45s}
+.dato:hover{border-color:var(--rosa-claro);box-shadow:0 0 22px rgba(224,68,110,.16)}
+.dato b{display:block;font-family:var(--tipo-titulo);font-size:clamp(1.7rem,6.2vw,2.35rem);line-height:1;color:var(--rosa)}
+[data-tema="noche"] .dato b{background:linear-gradient(180deg,#fff,#ff9ec0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.dato span{display:block;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gris);margin-top:7px}
+.nota{font-size:.79rem;color:var(--gris);margin-top:21px}
+
+/* REGRESIVOS */
+.regresivos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:8px}
+.regresivo{background:var(--reg-fondo);border:1px solid var(--tarjeta-borde);border-radius:17px;padding:25px 19px;
+  transition:background .45s,border-color .45s}
+.regresivo .titulo{font-size:.65rem;letter-spacing:.19em;text-transform:uppercase;color:var(--acento-color)}
+.regresivo .tiempo{font-family:var(--tipo-titulo);font-size:1.75rem;color:var(--titulo-color);margin:9px 0 3px;font-variant-numeric:tabular-nums}
+.regresivo .pie{font-size:.76rem;color:var(--gris)}
+
+/* FRASE */
+.frase-caja{position:relative;min-height:155px;display:flex;align-items:center;justify-content:center;padding:8px}
+.frase-caja::before,.frase-caja::after{
+  font-family:var(--tipo-titulo);font-size:3.2rem;color:var(--rosa);opacity:0;line-height:0;
+  position:absolute;transition:opacity .45s ease}
+[data-tema="noche"] .frase-caja::before,[data-tema="noche"] .frase-caja::after{opacity:.3}
+.frase-caja::before{content:"«";top:12px;left:0}
+.frase-caja::after{content:"»";bottom:-6px;right:0}
+#frase{font-family:var(--tipo-titulo);font-style:italic;font-size:clamp(1.15rem,4.5vw,1.65rem);
+  color:var(--titulo-color);line-height:1.55;transition:opacity .55s ease,transform .55s ease}
+#frase.saliendo{opacity:0;transform:translateY(-8px)}
+.puntos{display:flex;gap:6px;justify-content:center;margin-top:23px;flex-wrap:wrap}
+.puntos i{width:5px;height:5px;border-radius:50%;background:var(--rosa-claro);transition:all .4s}
+.puntos i.on{background:var(--rosa);transform:scale(1.5)}
+[data-tema="noche"] .puntos i.on{box-shadow:0 0 10px var(--rosa)}
+
+/* CARTA */
+.carta-texto{text-align:left;display:grid;gap:17px;color:var(--texto-carta);font-size:1rem}
+.carta-texto p{padding-left:0}
+[data-tema="noche"] .carta-texto p{border-left:2px solid rgba(255,107,157,.28);padding-left:16px}
+.firma{font-family:var(--tipo-titulo);font-style:italic;font-size:1.35rem;color:var(--rosa);text-align:right;margin-top:29px}
+.fecha-carta{text-align:right;font-size:.77rem;color:var(--gris)}
+
+/* SECRETO */
+.aviso{display:inline-block;background:var(--aviso-fondo);border:1px dashed var(--aviso-borde);color:var(--aviso-texto);
+  font-size:.81rem;padding:10px 18px;border-radius:12px;margin-bottom:20px;transition:background .45s,color .45s,border-color .45s}
+.btn-secreto{background:var(--rosa);color:#fff;box-shadow:0 6px 20px rgba(224,68,110,.28)}
+.btn-secreto:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(224,68,110,.2),0 12px 32px rgba(224,68,110,.36)}
+[data-tema="noche"] .btn-secreto{box-shadow:0 0 28px rgba(255,107,157,.35)}
+[data-tema="noche"] .btn-secreto:hover{box-shadow:0 0 0 4px rgba(255,107,157,.16),0 0 44px rgba(255,107,157,.6)}
+
+footer{text-align:center;padding:48px 20px;font-size:.77rem;color:var(--gris);position:relative;z-index:2}
+
+@keyframes subir{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .aurora i{animation:none}
+}
+@media(max-width:520px){
+  section{padding:62px 0}
+  .panel{padding:30px 20px;border-radius:20px}
+  .hero{gap:17px}
+  .toggle{top:12px;right:12px;width:42px;height:42px}
+}
+</style>
+</head>
+<body>
+
+<!-- Fondos (uno se muestra segun el tema) -->
+<div class="aurora"><i></i><i></i><i></i></div>
+<div class="estrellas"></div>
+<canvas id="petalos"></canvas>
+
+<button class="toggle" id="toggleTema" type="button"
+        aria-label="Cambiar entre modo día y noche" title="Modo día / noche">
+  <span class="icono-dia" aria-hidden="true">&#9788;</span>
+  <span class="icono-noche" aria-hidden="true">&#9789;</span>
+</button>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Desde el 20 de enero de 2026</p>
+    <h1>Para mi <em>Betsita bella</em></h1>
+    <p class="sub">Esta página es solo para ti. Para que leas y recuerdes nuestras cosas lindas.</p>
+    <div class="linea"></div>
+    <div class="acciones">
+      <a href="#tiempo" class="btn btn-primario">Tiempo juntos</a>
+      <a href="#carta" class="btn btn-fantasma">Leer la carta</a>
+    </div>
+  </div>
+  <span class="pista">desliza</span>
+</header>
+
+<main class="wrap">
+
+  <section id="tiempo">
+    <div class="panel">
+      <p class="etiqueta">Nuestro tiempo</p>
+      <h2>Llevamos juntos</h2>
+      <div class="rejilla">
+        <div class="dato"><b id="d-meses">—</b><span>meses</span></div>
+        <div class="dato"><b id="d-semanas">—</b><span>semanas</span></div>
+        <div class="dato"><b id="d-dias">—</b><span>días</span></div>
+        <div class="dato"><b id="d-horas">—</b><span>horas</span></div>
+        <div class="dato"><b id="d-min">—</b><span>minutos</span></div>
+        <div class="dato"><b id="d-seg">—</b><span>segundos</span></div>
+      </div>
+      <p class="nota" id="notaTiempo">—</p>
+
+      <div class="regresivos" style="margin-top:30px">
+        <div class="regresivo">
+          <p class="titulo">Nuestro próximo mes</p>
+          <p class="tiempo" id="regresivoMensual">—</p>
+          <p class="pie" id="pieMensual"></p>
+        </div>
+        <div class="regresivo">
+          <p class="titulo">Nuestro próximo aniversario</p>
+          <p class="tiempo" id="regresivoAnual">—</p>
+          <p class="pie" id="pieAnual"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="frases">
+    <div class="panel">
+      <p class="etiqueta">Lo que siento por ti</p>
+      <h2>Una razón a la vez</h2>
+      <div class="frase-caja"><p id="frase">—</p></div>
+      <div class="puntos" id="puntos"></div>
+    </div>
+  </section>
+
+  <section id="carta">
+    <div class="panel">
+      <p class="etiqueta">Para leer despacio</p>
+      <h2>Mi carta para ti</h2>
+      <div class="carta-texto" id="cartaTexto"></div>
+      <p class="firma" id="cartaFirma"></p>
+      <p class="fecha-carta" id="cartaFecha"></p>
+    </div>
+  </section>
+
+  <section id="secreto">
+    <div class="panel">
+      <p class="etiqueta">Casi al final</p>
+      <h2>Hay algo que quiero que veas</h2>
+      <p class="aviso">No lo presiones... o sí. Tú decides.</p><br>
+      <a href="NO.html" class="btn btn-secreto">No presiones esto</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">Hecho a mano, con todo el amor que te tengo.</footer>
+
+<script src="js/config.js"></script>
+<script src="js/tema.js"></script>
+<script src="js/tiempo.js"></script>
+<script src="js/frases.js"></script>
+<script src="js/carta.js"></script>
+<script src="js/particulas.js"></script>
+</body>
+</html>

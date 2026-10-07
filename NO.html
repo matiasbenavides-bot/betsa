@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="dia">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hay algo aquí — Para Betsa</title>
+<meta name="description" content="Insististe. Ahora mira lo que hay aquí.">
+<meta name="theme-color" content="#fdf3f0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<script>
+(function () {
+  try {
+    var guardado = localStorage.getItem("betsa-tema");
+    if (guardado) document.documentElement.dataset.tema = guardado;
+    else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.dataset.tema = "noche";
+  } catch (e) {}
+})();
+</script>
+
+<style>
+:root{
+  --vino:#8c1d3f; --rosa:#e0446e; --rosa-claro:#ffb3c7;
+  --fondo:#fdf3f0; --carbon:#3a2530; --gris:#7a6270;
+  --tarjeta:rgba(255,255,255,.78); --tarjeta-borde:rgba(224,68,110,.14);
+  --titulo-color:var(--vino);
+  --tipo-titulo:"Playfair Display",Georgia,serif;
+  --tipo-cuerpo:Inter,system-ui,sans-serif;
+}
+[data-tema="noche"]{
+  --vino:#ff6b9d; --rosa:#ff6b9d; --rosa-claro:#c9316b;
+  --fondo:#0d0810; --carbon:#f4eaf0; --gris:#a893a6;
+  --tarjeta:rgba(255,255,255,.05); --tarjeta-borde:rgba(255,120,160,.22);
+  --titulo-color:#fff;
+  --tipo-titulo:"Cormorant Garamond",Georgia,serif;
+  --tipo-cuerpo:Outfit,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--tipo-cuerpo);font-weight:300;background:var(--fondo);color:var(--carbon);
+  min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px;
+  -webkit-font-smoothing:antialiased;transition:background .45s ease,color .45s ease;
+}
+#confetti{position:fixed;inset:0;z-index:1;pointer-events:none}
+.toggle{
+  position:fixed;top:16px;right:16px;z-index:20;width:46px;height:46px;border-radius:50%;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+  background:var(--tarjeta);border:1px solid var(--tarjeta-borde);color:var(--carbon);
+  backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.12);
+  transition:transform .3s,box-shadow .3s,background .45s,border-color .45s,color .45s;
+}
+.toggle:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(224,68,110,.15)}
+.toggle .icono-dia{display:none}
+[data-tema="dia"] .toggle .icono-dia{display:inline}
+[data-tema="dia"] .toggle .icono-noche{display:none}
+
+.contenido{
+  position:relative;z-index:2;text-align:center;max-width:520px;width:100%;
+  background:var(--tarjeta);border:1px solid var(--tarjeta-borde);border-radius:24px;
+  padding:48px 32px;backdrop-filter:blur(14px);
+  box-shadow:0 18px 50px rgba(140,29,63,.1);
+  transition:opacity .5s ease,transform .5s ease,background .45s,border-color .45s;
+}
+.contenido.oculto{opacity:0;transform:scale(.92);pointer-events:none}
+h2{font-family:var(--tipo-titulo);font-weight:600;font-size:clamp(1.4rem,5.6vw,1.95rem);color:var(--titulo-color);margin-bottom:14px}
+.sub{color:var(--gris);font-size:.95rem;margin-bottom:30px}
+button{
+  font-family:var(--tipo-cuerpo);font-size:.95rem;font-weight:500;
+  background:var(--rosa);color:#fff;border:none;padding:15px 32px;border-radius:100px;cursor:pointer;
+  box-shadow:0 6px 22px rgba(224,68,110,.3);
+  transition:transform .25s,box-shadow .3s,background .3s;
+}
+button:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(224,68,110,.2),0 12px 32px rgba(224,68,110,.4)}
+button:active{transform:scale(.96)}
+#contadorClicks{margin-top:24px;font-size:.85rem;color:var(--gris);letter-spacing:.06em;min-height:1.4em}
+.barra{width:100%;height:4px;border-radius:4px;background:rgba(224,68,110,.13);margin-top:16px;overflow:hidden}
+.barra i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--rosa-claro),var(--rosa));transition:width .35s ease}
+
+.card{
+  position:fixed;top:50%;left:50%;z-index:3;
+  transform:translate(-50%,-50%) scale(.3);opacity:0;
+  width:88%;max-width:420px;padding:44px 32px;text-align:center;
+  background:var(--tarjeta);border:1px solid var(--tarjeta-borde);border-radius:26px;
+  backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(140,29,63,.25);
+  transition:transform .65s cubic-bezier(.2,.9,.3,1.3),opacity .6s ease,background .45s;
+}
+.card.activa{transform:translate(-50%,-50%) scale(1);opacity:1}
+.card h2{font-size:clamp(1.9rem,8vw,2.8rem);margin-bottom:12px}
+.card p{color:var(--gris);font-size:.95rem}
+.corazon{font-size:2.4rem;display:block;margin-bottom:10px;animation:latir 1.4s ease-in-out infinite}
+@keyframes latir{0%,100%{transform:scale(1)}14%{transform:scale(1.16)}28%{transform:scale(1)}42%{transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<button class="toggle" id="toggleTema" type="button" aria-label="Cambiar modo día y noche">
+  <span class="icono-dia" aria-hidden="true">&#9788;</span>
+  <span class="icono-noche" aria-hidden="true">&#9789;</span>
+</button>
+
+<section id="pantallaInicial" class="contenido">
+  <h2>Tienes que intentarlo varias veces</h2>
+  <p class="sub">De verdad. Varias.</p>
+  <button id="btnPresionar" type="button">No presionar aquí</button>
+  <p id="contadorClicks">Intentos: 0 / 20</p>
+  <div class="barra"><i id="barraProgreso"></i></div>
+</section>
+
+<div id="cardFinal" class="card">
+  <span class="corazon" aria-hidden="true">&#10084;</span>
+  <h2>TE AMOOOOOO</h2>
+  <p>Sabía que ibas a insistir. Por eso lo hice.</p>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/tema.js"></script>
+<script src="js/secreto.js"></script>
+
+</body>
+</html>
